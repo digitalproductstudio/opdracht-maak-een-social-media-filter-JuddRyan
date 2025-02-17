@@ -11,7 +11,6 @@ body {
 .ui_wrapper {
     height: 100%;
     width: 100%;
-    /* background-color: green; */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -51,6 +50,7 @@ body {
     border-width: .2rem;
     border-spacing: 1rem;
     background-color: #eeeeee;
+    cursor: pointer;
 }
 
 .button_wrapper {
@@ -59,8 +59,6 @@ body {
     align-items: center;
     justify-content: center;
     padding-block: 2rem;
-
-    
 }
 
 canvas {
@@ -71,7 +69,13 @@ canvas {
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
-    background-color: green;
+    background-color: rgb(180, 180, 180);
+    cursor: pointer;
+}
+
+#carousel_menu img {
+    width: 4rem;
+    height: 4rem;
 }
 
 .model_selector {
@@ -79,6 +83,10 @@ canvas {
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+
+    list-style: none;
 }
 
 .hidden {
@@ -94,9 +102,19 @@ a-scene {
     max-height: 10rem;
     /* background-color: rgba(230, 228, 228, 0.473); */
     margin-block: 1rem;
+    cursor: pointer;
 }
 
 .model_item img {
-    max-width: 10rem;
-    max-height: 10rem;
+    width: 8rem;
+    height: 6rem;
+    overflow-inline: hidden;
+    border-radius: 1rem;
+}
+
+@media (min-width: 30rem) {
+    .model_selector {
+        flex-direction: row;
+        align-items: normal;
+    }
 }

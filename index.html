@@ -1,13 +1,11 @@
 <html>
 
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0," />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no=" />
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
-
   <link rel="stylesheet" href="main.css">
-
-
+  <script src="main.js"></script>
 </head>
 
 <body>
@@ -21,150 +19,34 @@
     </div>
 
     <div class="toolbar">
-      
-      <div class="empty">
-      </div>
-
+      <div class="empty"></div>
       <div class="button_wrapper">
         <button class="snapshot_button" id="capture"></button>
       </div>
-      <div id="carousel_menu"></div>
+      <div id="carousel_menu"><img src="https://cdn-icons-png.flaticon.com/512/290/290742.png" alt=""></div>
     </div>
   </div>
-
   
   <div class="" id="scene">
     <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-assets>
-        <a-asset-item id="glassesModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/face-tracking/assets/glasses/scene.gltf"></a-asset-item>
-        <a-asset-item id="glasses1" src="assets/glasses_01.glb"></a-asset-item>
-        <a-asset-item id="glasses2" src="assets/glasses_02.glb"></a-asset-item>
-        <a-asset-item id="glasses3" src="assets/glasses_03.glb"></a-asset-item>
+        <a-asset-item id="glasses_asset_1" src="assets/glasses_04.glb"></a-asset-item>
+        <a-asset-item id="glasses_asset_2" src="assets/glasses_02.glb"></a-asset-item>
+        <a-asset-item id="glasses_asset_3" src="assets/glasses_03.glb"></a-asset-item>
       </a-assets>
 
       <a-camera active="false" position="0 0 0"></a-camera>
 
-      <!-- <a-entity mindar-face-target="anchorIndex: 168">
-        <a-gltf-model id="glassesModel" rotation="0 0 0" position="0 0 0" scale="0.01 0.01 0.01" src="#glassesModel"></a-gltf-model>
-      </a-entity> -->
       <a-entity mindar-face-target="anchorIndex: 168">
-        <a-gltf-model id="glasses1" rotation="0 0 0" position="0 0 0" scale="0.5 .5 .5" src="#glasses01" visible="false"></a-gltf-model>
+        <a-gltf-model class="gtlf_model" id="glasses1" rotation="0 0 0" position="0 0 0" scale="0.2 .2 .2" src="#glasses_asset_1" visible="false"></a-gltf-model>
       </a-entity>
       <a-entity mindar-face-target="anchorIndex: 168">
-        <a-gltf-model id="glasses2" rotation="0 0 0" position="0 0 0" scale="1 1 1" src="#glasses02" visible="false"></a-gltf-model>
+        <a-gltf-model class="gtlf_model" id="glasses2" rotation="0 0 0" position="0 0 0" scale=".8 .8 .8" src="#glasses_asset_2" visible="false"></a-gltf-model>
       </a-entity>
       <a-entity mindar-face-target="anchorIndex: 168">
-        <a-gltf-model id="glasses3" rotation="0 0 0" position="0 -.25 0" scale=".2 .2 .2" src="#glasses03" visible="false"></a-gltf-model>
+        <a-gltf-model class="gtlf_model" id="glasses3" rotation="0 0 0" position="0 -.25 0" scale=".2 .2 .2" src="#glasses_asset_3" visible="false"></a-gltf-model>
       </a-entity>
     </a-scene>
   </div>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      carouselMenu = document.querySelector(".model_selector");
-
-      document.querySelector("#carousel_menu").addEventListener("click", function() {
-        carouselMenu.classList.toggle("hidden");
-      });
-
-      // const list = ["glasses1", "glasses2", "glasses2"];
-      // const visibles = [true, false, false];
-      // const setVisible = (button, entities, visible) => {
-      //     if (visible) {
-      //       button.classList.add("selected");
-      //     } else {
-      //       button.classList.remove("selected");
-      //     }
-      //     entities.forEach((entity) => {
-      //       entity.setAttribute("visible", visible);
-      //     });
-      //   }
-      //   list.forEach((item, index) => {
-      //     const button = document.querySelector("#model_" + item);
-      //     const entities = document.querySelectorAll("#glasses" + item);
-      //     setVisible(button, entities, visibles[index]);
-      //     button.addEventListener('click', () => {
-      //       visibles[index] = !visibles[index];
-      //       setVisible(button, entities, visibles[index]);
-      //     });
-      //   });
-
-
-      glassesList = document.querySelectorAll(".model_item");
-
-      glassesList.forEach(e => {
-        e.addEventListener("click", () => {
-          glassesModel.setAttribute("visible", true);
-          console.log(glassesModel)
-
-
-          // const value = e.getAttribute("data-value");
-          // const gltfModel = document.querySelector(`#glasses${value}`);
-          // const visible = glassesModel.getAttribute("visible")
-          // console.log(visible, glassesModel);
-          // const setVisible = (visible) => {
-          //   if (visible == "false") {
-          //     visible.setAttribute("visible", visible);
-          //   } else {
-          //     visible.setAttribute("visible", false)
-          //   }
-          // }
-
-          // setVisible(visible);
-        })
-      });
-      
-      document.getElementById("capture").addEventListener("click", function () {
-        console.error("THIS IS WORKING!!!");
-        let scene = document.querySelector("a-scene");
-        let video = document.querySelector("video");
-        let canvas = document.createElement("canvas");
-        let ctx = canvas.getContext("2d");
-
-        // Set canvas size to match video
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-
-        // Draw the webcam feed first (flip it to match AR scene)
-        ctx.save();
-        ctx.scale(-1, 1); // Mirror effect
-        ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-        ctx.restore();
-
-        // Ensure the WebGL buffer is preserved
-        scene.renderer.preserveDrawingBuffer = true;
-
-        // Sync rendering to avoid misalignment
-        requestAnimationFrame(() => {
-          let arCanvas = scene.renderer.domElement;
-          ctx.drawImage(arCanvas, 0, 0, canvas.width, canvas.height);
-
-          // Download the final merged image
-          function getReadableTimestamp() {
-            const now = new Date();
-            const year = now.getFullYear();
-            const month = String(now.getMonth() + 1).padStart(2, '0'); // Month is 0-based, so add 1
-            const day = String(now.getDate()).padStart(2, '0');
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            
-            // Format as "YYYY-MM-DD_HH-MM-SS" for easy filename use
-            return `${year}-${month}-${day}_${hours}-${minutes}-${seconds}`;
-          }
-
-          let imgData = canvas.toDataURL("image/png");
-          let downloadLink = document.createElement("a");
-          downloadLink.href = imgData;
-          downloadLink.download = `AR_Snapshot-${getReadableTimestamp()}.png`;
-          downloadLink.click();
-        });
-      });
-    })
-    
-  
-  </script>
 </body>
-
-
 </html>
