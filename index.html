@@ -1,13 +1,34 @@
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
-  </head>
-  <body>
-    <!-- <a-assets>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no," />
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+
+  <link rel="stylesheet" href="main.css">
+
+
+</head>
+
+<body>
+  <div class="ui_wrapper">
+    <div class="list_test"></div>
+    <div class="toolbar">
+      
+      <div class="carousel">
+      </div>
+
+      <div class="button_wrapper">
+        <button class="snapshot_button" id="capture"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <a-assets>
       <a-asset-item id="glassesModel" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/glasses/scene.gltf"></a-asset-item>
     </a-assets> -->
+
+  <div class="" id="scene">
     <a-scene mindar-face embedded color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
       <a-camera active="false" position="0 0 0"></a-camera>
 
@@ -27,5 +48,29 @@
 
 
     </a-scene>
-  </body>
+  </div>
+</body>
+
+<script>
+   document.addEventListener("DOMContentLoaded", async () => {
+    const mindar = new MindAR.Face.MindARThree({ container: document.getElementById("container") });
+    await mindar.start();
+
+    document.getElementById("capture").addEventListener("click", () => {
+        const canvas = document.querySelector("canvas"); 
+        const image = canvas.toDataURL("image/png"); 
+
+        // Create a download link
+        const link = document.createElement("a");
+        link.href = image;
+        link.download = "screenshot.png";
+        link.click();
+    });
+  });
+
+  
+
+</script>
+
+
 </html>
